@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+  /* Theme Palette */
+  --bg-app: #FFF3E0;        /* Soft Peach Background */
+  --card-white: #FFFFFF;    /* Clean White Card */
+  --primary: #FF9800;       /* Tango Orange */
+  --primary-hover: #F57C00; /* Darker Orange */
+  
+  /* Text Colors */
+  --text-main: #3E2723;     /* Dark Cocoa */
+  --text-muted: #795548;    /* Muted Brown */
+  
+  /* Inputs & Borders */
+  --input-bg: #FAFAFA;
+  --border-soft: #FFE0B2;
+}
+
+* { box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* --- Container & Background --- */
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-y: auto; /* Enable scroll if content overflows */
+  padding: 40px 20px;
+}
+
+.ambient-light {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(100px);
+  opacity: 0.5;
+}
+.blob.orange { top: -10%; left: -10%; width: 40vw; height: 40vw; background: #FFB74D; }
+.blob.yellow { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: #FFF176; }
+
+/* --- Solid White Card --- */
+.register-card {
+  background: var(--card-white);
+  border: 1px solid var(--border-soft);
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  border-radius: 24px;
+  /* Soft shadow for depth without the neon glow */
+  box-shadow: 0 10px 30px rgba(62, 39, 35, 0.08); 
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* --- Header --- */
+.card-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+  display: inline-block;
+  color: var(--primary);
+}
+
+.card-header h2 {
+  font-size: 28px;
+  margin: 0 0 8px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.card-header p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* --- Inputs --- */
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.input-group input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text-main);
+  font-size: 15px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.1);
+}
+
+.input-group input::placeholder {
+  color: #BDBDBD;
+}
+
+/* --- Main Button (Tango Orange) --- */
+.btn-primary {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2);
+}
+
+.full-width { width: 100%; }
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 152, 0, 0.3);
+}
+
+/* --- Divider --- */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 25px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.divider span { padding: 0 10px; }
+
+/* --- Social Buttons --- */
+.social-login {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-social {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  padding: 12px;
+  border-radius: 12px;
+  color: var(--text-main);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.btn-social:hover {
+  background: #FAFAFA;
+  border-color: var(--primary);
+}
+
+/* --- Footer --- */
+.card-footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.link-highlight {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 5px;
+  transition: 0.2s;
+}
+
+.link-highlight:hover {
+  text-decoration: underline;
+  color: var(--text-main);
+}
+
+/* --- Animations --- */
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  .register-container { padding: 20px; }
+  .register-card { padding: 30px 20px; box-shadow: none; border: none; background: transparent; }
+  .social-login { flex-direction: column; }
+}

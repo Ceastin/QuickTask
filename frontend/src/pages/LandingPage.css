@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+/* --- Variables --- */
+:root {
+  /* Theme Palette */
+  --bg-app: #FFF3E0;        /* Soft Peach Background */
+  --primary: #FF9800;       /* Orange Action Color */
+  --primary-hover: #F57C00; /* Darker Orange */
+  
+  --card-white: #FFFFFF;    /* Clean White */
+  --card-yellow: #FFF9C4;   /* Butter Yellow */
+  
+  /* Text Colors */
+  --text-main: #3E2723;     /* Dark Brown (High Contrast) */
+  --text-muted: #795548;    /* Muted Brown */
+  
+  /* Borders & Accents */
+  --border-soft: #FFE0B2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  overflow-x: hidden;
+  /* Fixes the "not scrollable" issue */
+  overflow-y: auto; 
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+/* --- Ambient Background (Warm Blobs) --- */
+.ambient-light {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: floatBackground 12s infinite alternate;
+}
+
+.blob.orange {
+  top: -10%; left: -10%; width: 50vw; height: 50vw;
+  background: radial-gradient(circle, #FFCC80, transparent 70%);
+}
+
+.blob.yellow {
+  bottom: -10%; right: -10%; width: 60vw; height: 60vw;
+  background: radial-gradient(circle, #FFF59D, transparent 70%);
+  animation-delay: -5s;
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Solid warm background with slight blur */
+  background: rgba(255, 243, 224, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.logo-icon { font-size: 24px; }
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* --- Nav Buttons --- */
+.nav-buttons { display: flex; align-items: center; gap: 15px; }
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.btn-link:hover { color: var(--primary); }
+
+.btn-primary {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 0 rgba(230, 81, 0, 0.1);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: var(--primary-hover);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--border-soft);
+  color: var(--text-main);
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: white;
+}
+
+/* --- Hero Section --- */
+.hero {
+  display: flex;
+  flex-direction: column; /* Mobile first */
+  align-items: center;
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+}
+
+/* Desktop Layout for Hero */
+@media (min-width: 900px) {
+  .hero {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .hero-content { max-width: 50%; }
+  .hero-visuals { margin-right: 50px; }
+  .cta-group { justify-content: flex-start; }
+}
+
+.badge {
+  background: #FFF8E1;
+  color: var(--primary);
+  border: 1px solid var(--border-soft);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.hero h2 {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: var(--text-main);
+}
+
+.text-highlight {
+  color: var(--primary);
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.cta-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+  /* Fixed the weird margin from previous code */
+  justify-content: center; 
+}
+@media (min-width: 900px) { .cta-group { justify-content: flex-start; } }
+
+/* --- Floating Visuals (Light Theme) --- */
+.hero-visuals {
+  display: flex;
+  gap: 20px;
+  perspective: 1000px;
+  /* Ensure visuals don't overlap text on small screens */
+  margin-top: 40px; 
+}
+@media (min-width: 900px) { .hero-visuals { margin-top: 0; } }
+
+.floating-card {
+  background: var(--card-white);
+  border: 1px solid var(--border-soft);
+  padding: 20px;
+  width: 130px;
+  height: 150px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 15px 30px rgba(62, 39, 35, 0.08); /* Soft brown shadow */
+  animation: float 6s ease-in-out infinite;
+}
+
+.card-1 { animation-delay: 0s; transform: rotate(-5deg); z-index: 1; }
+.card-2 { animation-delay: 2s; transform: translateY(-20px); z-index: 2; border-color: var(--primary); background: #FFFDE7; }
+.card-3 { animation-delay: 4s; transform: rotate(5deg); z-index: 1; }
+
+.floating-card .icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+/* Lines inside cards */
+.lines { width: 100%; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.line { height: 6px; background: #F5F5F5; border-radius: 4px; }
+.card-2 .line { background: rgba(255, 152, 0, 0.2); } /* Orange lines for center card */
+.full { width: 80%; }
+.half { width: 50%; }
+.three-q { width: 65%; }
+
+/* --- Features Section --- */
+.features {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  color: var(--text-main);
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--card-yellow); /* Yellow Cards */
+  border: 1px solid transparent;
+  border-radius: 24px;
+  padding: 40px;
+  width: 320px;
+  text-align: left;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(62, 39, 35, 0.03);
+}
+
+/* Middle card white for contrast */
+.feature-card.highlight {
+  background: var(--card-white);
+  border: 1px solid var(--border-soft);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(62, 39, 35, 0.08);
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 40px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* --- Animations --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-15px) rotate(var(--r, 0deg)); }
+}
+
+@keyframes floatBackground {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 40px); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .hero h2 { font-size: 2.5rem; }
+  .btn-primary, .btn-outline { width: 100%; }
+  .cta-group { flex-direction: column; width: 100%; }
+  .hero-visuals { display: none; } /* Hide 3D cards on very small screens */
+}

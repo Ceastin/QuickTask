@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+/* --- Variables --- */
+:root {
+  /* Theme Palette */
+  --bg-app: #FFF3E0;        /* Soft Peach/Light Orange */
+  --card-bg: #FFFFFF;       /* Clean White Card */
+  --primary: #FF9800;       /* Orange Highlight */
+  --accent: #FFB74D;        /* Lighter Orange */
+  
+  /* Text Colors */
+  --text-main: #3E2723;     /* Dark Brown */
+  --text-muted: #795548;    /* Muted Brown */
+  
+  /* Inputs & Borders */
+  --input-bg: #FAFAFA;
+  --border-soft: #FFE0B2;
+}
+
+* { box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* --- Container --- */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* --- Ambient Background --- */
+/* Removed blobs for a cleaner, easier-on-the-eyes look */
+.ambient-light, .blob {
+  display: none; 
+}
+
+/* --- Login Card (Solid White) --- */
+.login-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 24px;
+  /* Soft, warm shadow */
+  box-shadow: 0 10px 30px rgba(62, 39, 35, 0.08); 
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* --- Header --- */
+.card-header { text-align: center; margin-bottom: 32px; }
+
+.logo-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+  display: inline-block;
+  /* No drop shadow, just text color */
+}
+
+.card-header h2 { 
+  font-size: 28px; 
+  margin: 0 0 8px; 
+  font-weight: 700; 
+  color: var(--primary);
+}
+
+.card-header p { color: var(--text-muted); font-size: 14px; margin: 0; }
+
+/* --- Inputs --- */
+.input-group { margin-bottom: 20px; text-align: left; }
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.input-group label {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.forgot-link {
+  font-size: 12px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.forgot-link:hover { color: var(--text-main); text-decoration: underline; }
+
+.input-group input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text-main);
+  font-size: 15px;
+  transition: all 0.2s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.input-group input::placeholder {
+  color: #BDBDBD;
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+  background: #FFF;
+  box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.15);
+}
+
+/* --- Main Button (Solid Orange) --- */
+.btn-glow {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+}
+
+.full-width { width: 100%; }
+
+.btn-glow:hover { 
+  transform: translateY(-2px); 
+  background-color: #F57C00; /* Darker Orange */
+  box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); 
+}
+
+/* --- Divider --- */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 25px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.divider::before, .divider::after { 
+  content: ''; 
+  flex: 1; 
+  border-bottom: 1px solid #EEEEEE; 
+}
+.divider span { padding: 0 10px; }
+
+/* --- Social Buttons --- */
+.social-login { display: flex; gap: 15px; }
+
+.btn-social {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  padding: 12px;
+  border-radius: 12px;
+  color: var(--text-main);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.btn-social:hover { 
+  background: #FAFAFA; 
+  border-color: var(--primary); 
+}
+
+/* "invert" class removed because we want dark icons on white background now.
+   If your SVGs are white by default, keep it. If they are colored/black, remove it. */
+.invert { filter: none; } 
+
+/* --- Footer --- */
+.card-footer { margin-top: 30px; text-align: center; font-size: 14px; color: var(--text-muted); }
+
+.link-highlight {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 5px;
+  transition: 0.2s;
+}
+.link-highlight:hover { color: var(--text-main); text-decoration: underline; }
+
+/* --- Animations --- */
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .login-card { padding: 30px 20px; box-shadow: none; border: none; background: transparent; }
+  .social-login { flex-direction: column; }
+}
