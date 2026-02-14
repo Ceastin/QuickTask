@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./RegisterPage.css";
-
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/userApi";
 export default function RegisterPage() {
+  const navigate=useNavigate();
+  const [loading,setLoading]=useState(false);
+  const [error,setError]=useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,7 +15,22 @@ export default function RegisterPage() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    try{
+      setLoading(true);
+      setError(null);
+      const data=await registerUser(formData);
+      console.log("success:",data);
+      navigate("/login",{replace:true});
+    }
+    catch(err)
+    {
+      setError(err.response?.data?.message||"Login failed");
+    }finally{
+      setLoading(false);
+    }
+  }
   return (
     <div className="register-container">
       {/* Subtle Warm Background Accents */}
@@ -27,7 +46,7 @@ export default function RegisterPage() {
           <p>Join QuickTask and boost your productivity.</p>
         </div>
 
-        <form className="register-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="register-form" onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Full Name</label>
             <input
@@ -65,7 +84,7 @@ export default function RegisterPage() {
           </div>
 
           <button type="submit" className="btn-primary full-width">
-            Sign Up
+            {loading?"Running()":"Sign Up"};
           </button>
         </form>
 

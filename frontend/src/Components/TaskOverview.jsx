@@ -1,9 +1,14 @@
-
-export const TaskFilters = ({ filter, setFilter, sort, setSort }) => (
+export const TaskFilters = ({ filter, setFilter, sort, setSort, searchQuery, setSearchQuery }) => (
   <div className="filters-bar glass-panel">
     <div className="search-wrapper">
       <span className="search-icon">🔍</span>
-      <input type="text" placeholder="Search tasks..." className="search-input" />
+      <input
+        type="text"
+        placeholder="Search tasks..."
+        className="search-input"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
     </div>
     <div className="controls">
       <select value={filter} onChange={(e) => setFilter(e.target.value)} className="dropdown">

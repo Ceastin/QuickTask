@@ -1,16 +1,39 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-
+import { loginUser } from "../api/userApi";
+import {useNavigate}  from "react-router-dom";
 export default function LoginPage() {
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const [loading,setLoading]=useState(false);
+  const [error,setError]=useState(null);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handlesubmit=async (e)=>{
+    e.preventDefault();
+    console.log(formData);
+    try{
+      setLoading(true);
+      setError(null);
+      const data=await loginUser(formData);
+      console.log("success:",data);
+      if(data.token)
+      {
+        localStorage.setItem("JWT",data.token);
+      }
+      navigate("/home",{replace:true});
+    }
+    catch{
+        setError(err.response?.data?.message||"Login failed");
+    }
+    finally{
+        setLoading(false);
+    }
+  }
   return (
     <div className="login-container">
       {/* Ambient Background Lighting */}
@@ -26,7 +49,7 @@ export default function LoginPage() {
           <p>Enter your credentials to access your workspace.</p>
         </div>
 
-        <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+        <form className="login-form" onSubmit={handlesubmit}>
           <div className="input-group">
             <label>Email Address</label>
             <input
@@ -55,7 +78,7 @@ export default function LoginPage() {
           </div>
 
           <button type="submit" className="btn-glow full-width">
-            Log In
+            {loading?"Running()":"Log In"}
           </button>
         </form>
 

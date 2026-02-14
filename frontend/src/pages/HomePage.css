@@ -366,3 +366,225 @@ body {
   .stats-grid { grid-template-columns: 1fr; }
   .search-wrapper { width: 100%; }
 }
+
+/* --- My Tasks Section Styling --- */
+
+.my-tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  animation: fadeIn 0.4s ease;
+}
+
+.my-tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 15px;
+  border-bottom: 2px dashed var(--border-soft);
+}
+
+.my-tasks-header h2 {
+  font-size: 26px;
+  color: var(--text-main);
+  margin: 0;
+  font-weight: 700;
+}
+
+.my-tasks-header p {
+  color: var(--text-muted);
+  margin: 5px 0 0 0;
+  font-size: 15px;
+}
+
+.task-count-badge {
+  background: var(--sidebar-white);
+  color: var(--highlight-orange);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 14px;
+}
+
+/* Grid Layout */
+.my-tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Grid Card Styling */
+.task-grid-card {
+  background: var(--card-yellow);
+  border: 1px solid rgba(0,0,0,0.03);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.task-grid-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(255, 152, 0, 0.15);
+  border-color: var(--border-soft);
+}
+
+/* Card Decorative Top Bar */
+.task-grid-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--bg-app), var(--highlight-orange));
+  opacity: 0.5;
+}
+
+/* Card Content */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.priority-pill {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+/* Reuse existing priority colors defined in your CSS */
+.priority-pill.high { background: #FFCCBC; color: #D84315; }
+.priority-pill.medium { background: #FFE0B2; color: #EF6C00; }
+.priority-pill.low { background: #C8E6C9; color: #2E7D32; }
+
+.status-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+.status-dot.completed { background: var(--success); }
+.status-dot.pending { background: var(--highlight-orange); box-shadow: 0 0 6px var(--highlight-orange); }
+
+.grid-task-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.grid-task-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+  flex-grow: 1; /* Pushes footer down */
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.due-date-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.due-date-group .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.due-date-group .date-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 2px;
+}
+
+.status-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  background: var(--sidebar-white);
+  border-radius: 12px;
+  color: var(--text-muted);
+}
+
+/* Large Empty State */
+.empty-state-large {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 20px;
+  border: 2px dashed var(--border-soft);
+  margin-top: 20px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.empty-state-large h3 {
+  font-size: 20px;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .my-tasks-grid { grid-template-columns: 1fr; }
+}
+/* Ensure the container uses full width of the parent */
+.my-tasks-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Make sure the grid expands */
+.my-tasks-grid {
+  display: grid;
+  /* This creates columns that are at least 300px wide, but fill the space */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  width: 100%; /* Force full width */
+  padding-bottom: 40px; /* Space at bottom for scrolling */
+}
+
+/* Adjust header to look cleaner */
+.my-tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  border-bottom: 2px dashed var(--border-soft);
+  margin-bottom: 10px;
+}
