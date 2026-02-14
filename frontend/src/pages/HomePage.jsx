@@ -40,7 +40,7 @@ export default function HomePage() {
           const userId = localStorage.getItem('userId'); 
           
           // 1. Fetch User Statistics
-          const statsRes = await fetch(`http://localhost:8000/api/v1/analytics/users/${userId}/statistics`);
+          const statsRes = await fetch(`https://quicktask-analytics-8r8q.onrender.com/api/v1/analytics/users/${userId}/statistics`);
           const statsData = await statsRes.json();
 
 
@@ -49,7 +49,7 @@ export default function HomePage() {
           // 2. Fetch Productivity Trends
           const sDate = format(dateRange.start, 'yyyy-MM-dd');
           const eDate = format(dateRange.end, 'yyyy-MM-dd');
-          const trendRes = await fetch(`http://localhost:8000/api/v1/analytics/users/${userId}/productivity?start_date=${sDate}&end_date=${eDate}`);
+          const trendRes = await fetch(`https://quicktask-analytics-8r8q.onrender.com/api/v1/analytics/users/${userId}/productivity?start_date=${sDate}&end_date=${eDate}`);
           const trendData = await trendRes.json();
 
 
