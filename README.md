@@ -8,11 +8,13 @@ you can visit the website at this link:
 ## ✨ Overview
 
 QuickTask helps users stay organized and gain deep insights into their productivity. 
+<img width="1917" height="883" alt="image" src="https://github.com/user-attachments/assets/4441212d-7f0d-4c68-bc74-83b814aeb540" />
+
 
 This project demonstrates a production-ready, scalable architecture with strict separation of concerns, built as a technical assessment for LeadMasters AI.
 
 ------------------------------------------------------------------------
-                                                                QUICKTASK SYSTEM ARCHITECTURE
+                                            QUICKTASK SYSTEM ARCHITECTURE
 ------------------------------------------------------------------------
 
                         +-------------------------+
@@ -61,6 +63,7 @@ This project demonstrates a production-ready, scalable architecture with strict 
 * Fully responsive UI with dark mode support
 
 ---
+<img width="951" height="858" alt="image" src="https://github.com/user-attachments/assets/6df84eb9-d5bb-4a0d-8def-d55aa3419bd1" />
 
 ## 🏗 Architecture
 
@@ -85,6 +88,8 @@ This project demonstrates a production-ready, scalable architecture with strict 
 * Pydantic models for validation
 * Analytics endpoints for stats & trends
 
+<img width="1897" height="886" alt="image" src="https://github.com/user-attachments/assets/d8c4a283-0c45-49e1-99bd-da72ea0ad262" />
+
 ---
 
 ## 🛠 Technology Stack
@@ -100,6 +105,7 @@ This project demonstrates a production-ready, scalable architecture with strict 
 | **Validation** | express-validator + Pydantic      |
 
 ---
+<img width="1918" height="890" alt="image" src="https://github.com/user-attachments/assets/7d6707d5-685c-442c-a1a9-42ddbc87da99" />
 
 ## 🚀 Getting Started
 
@@ -119,6 +125,7 @@ cp backend/.env.example backend/.env
 # Python Service
 cp service/.env.example service/.env
 
+<img width="1892" height="875" alt="image" src="https://github.com/user-attachments/assets/102d15c9-c26d-4d54-a045-da590c6e0a34" />
 
 ### 2️⃣ Configure environment variables
 
