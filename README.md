@@ -77,34 +77,35 @@ cp backend/.env.example backend/.env
 cp service/.env.example service/.env
 
 
-2️⃣ Configure environment variables
+### 2️⃣ Configure environment variables
 
 # Backend
 cp backend/.env.example backend/.env
 
 # Python Service
 cp service/.env.example service/.env
-3️⃣ Run Backend
+
+### 3️⃣ Run Backend
 
 cd backend
 npm install
 npm run dev
 
-4️⃣ Run Frontend
+### 4️⃣ Run Frontend
 
 cd frontend
 npm install
 npm run dev
 (Frontend will be available at http://localhost:5173)
 
-5️⃣ Run Python Analytics Service
+### 5️⃣ Run Python Analytics Service
 
 cd service
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 
 
-📡 API Endpoints
+###  📡 API Endpoints
 Authentication (/api/v1/auth)
 Method,Endpoint,Description
 POST,/register,Register a new user
@@ -115,7 +116,7 @@ GET,/me,Get current user (protected)
 
 
 
-Tasks (/api/v1/tasks)
+###  Tasks (/api/v1/tasks)
 Method,Endpoint,Description
 GET,/,Get all tasks (supports filters & sort)
 POST,/,Create a new task
@@ -124,13 +125,12 @@ PUT,/:id,Update task
 DELETE,/:id,Delete task
 
 
-Analytics (Python Service – Port 8000)
-
+###  Analytics (Python Service – Port 8000)
 Method,Endpoint,Description
 GET,/analytics/stats,User productivity statistics
 GET,/analytics/productivity?days=30,Task completion trends
 
-📁 Project Structure
+###  📁 Project Structure
 QuickTask/
 ├── backend/          # Node.js + Express API
 ├── frontend/         # React + Vite frontend
@@ -139,4 +139,4 @@ QuickTask/
 ├── .gitignore
 └── README.md
 
-📸 Screenshots
+###  📸 Screenshots
