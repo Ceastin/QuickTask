@@ -1,8 +1,6 @@
 # QuickTask
 you can visit the website at this link:
-
-
- https://quick-task-azure.vercel.app/
+### https://quick-task-azure.vercel.app/
 
 
 > A production-grade personal task management application with MERN stack + dedicated Python analytics microservice.
@@ -71,7 +69,7 @@ This project demonstrates a production-ready, scalable architecture with strict 
 * MongoDB (local or Atlas)
 
 ### 1️⃣ Clone the repository
-```bash
+
 git clone [https://github.com/Ceastin/QuickTask.git](https://github.com/Ceastin/QuickTask.git)
 cd QuickTask
 
