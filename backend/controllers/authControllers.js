@@ -37,13 +37,15 @@ const login=async(req,res)=>{
     console.log("till here")
     const payload={
         userId:user._id,
-        username:user.username,
+        username:user.fullname,
         role:user.role
     };
     const token=jwt.sign(payload,jwtSecretKey,{
         expiresIn:jwtExpiry
     });
-    res.json({message:"Login Successful",token:token});
+    console.log(user._id);
+    res.json({ message: "Login Successful", token: token, name: user.fullname,userId:user._id });
+
 };
 const allUser=async(req,res)=>{
     const data=await User.find();

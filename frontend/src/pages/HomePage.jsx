@@ -8,6 +8,17 @@ import { TaskFilters } from "../Components/TaskOverview";
 import { useEffect } from "react";
 import { getAllUsers,addTask,modifyTask,deleteTasky } from "../api/task";
 import { useNavigate } from "react-router-dom";
+
+import { 
+  BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer, 
+  PieChart, Pie, Cell, Legend 
+} from 'recharts';
+import { format, subDays } from 'date-fns';
+
+
+
+
+
 export default function HomePage() {
   const navigate=useNavigate();
   const [tasks, setTasks] = useState([]);
@@ -18,6 +29,42 @@ export default function HomePage() {
   const [sort, setSort] = useState('Newest');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fetchagain,setFetchAgain]=useState(true);
+  const [userStats, setUserStats] = useState(null);
+  const [productivityTrend, setProductivityTrend] = useState([]);
+  const [dateRange, setDateRange] = useState({ start: subDays(new Date(), 7), end: new Date() });
+
+  useEffect(() => {
+    if (activeTab === "Analytics") { 
+      const fetchAnalytics = async () => {
+        try {
+          const userId = localStorage.getItem('userId'); 
+          
+          // 1. Fetch User Statistics
+          const statsRes = await fetch(`http://localhost:8000/api/v1/analytics/users/${userId}/statistics`);
+          const statsData = await statsRes.json();
+
+
+          setUserStats(statsData);
+
+          // 2. Fetch Productivity Trends
+          const sDate = format(dateRange.start, 'yyyy-MM-dd');
+          const eDate = format(dateRange.end, 'yyyy-MM-dd');
+          const trendRes = await fetch(`http://localhost:8000/api/v1/analytics/users/${userId}/productivity?start_date=${sDate}&end_date=${eDate}`);
+          const trendData = await trendRes.json();
+
+
+          setProductivityTrend(trendData.trends);
+
+        } catch (error) {
+          console.error("Error loading analytics", error);
+        }
+      };
+      fetchAnalytics();
+    }
+  }, [activeTab, dateRange]);
+
+// Colors for the charts matching your theme
+const COLORS = ['#FF9800', '#FFCC80', '#E65100']; 
   useEffect(()=>{
     const fetchAllTask=async()=>{
       try{
@@ -49,6 +96,8 @@ export default function HomePage() {
 
 if (activeTab === "Logout") {
   localStorage.removeItem("JWT");
+  localStorage.removeItem("name");
+  localStorage.removeItem("userId");
   navigate("/login"); 
 }
 
@@ -99,7 +148,6 @@ const toggleTask = async (id) => {
   <div className="dashboard-container">
     <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-    {/* The main-content class handles the scrolling and padding for BOTH tabs */}
     <main className="main-content">
       
       {/* ---------------- DASHBOARD TAB ---------------- */}
@@ -107,7 +155,7 @@ const toggleTask = async (id) => {
         <>
           <header className="top-header">
             <div className="header-text">
-              <h1>Hello, {localStorage.username || 'User'}!</h1>
+              <h1>Hello, {localStorage.name || 'User'}!</h1>
               <p>Here's what's happening today.</p>
             </div>
             <button className="btn-glow" onClick={() => setIsModalOpen(true)}>+ New Task</button>
@@ -199,6 +247,119 @@ const toggleTask = async (id) => {
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+        </div>
+      )}
+      {activeTab === "Analytics" && (
+        <div className="analytics-container">
+          
+          {/* Header Section */}
+          <header className="analytics-header">
+            <div>
+              <h2>Personal Performance</h2>
+              <p>Your task completion stats for the last 7 days.</p>
+            </div>
+            <div className="date-display">
+              {format(dateRange.start, 'MMM dd')} - {format(dateRange.end, 'MMM dd, yyyy')}
+            </div>
+          </header>
+
+          {userStats ? (
+            <>
+              {/* Top Row: Key Metrics Cards */}
+              <div className="metrics-grid">
+                <div className="metric-card glass-panel">
+                  <div className="metric-icon">🏆</div>
+                  <div className="metric-info">
+                    <span className="label">Completion Rate</span>
+                    <span className="value highlight">{userStats.completion_rate}</span>
+                  </div>
+                </div>
+                
+                <div className="metric-card glass-panel">
+                  <div className="metric-icon">📝</div>
+                  <div className="metric-info">
+                    <span className="label">Total Assigned</span>
+                    <span className="value">{userStats.total_tasks}</span>
+                  </div>
+                </div>
+
+                <div className="metric-card glass-panel">
+                  <div className="metric-icon">✅</div>
+                  <div className="metric-info">
+                    <span className="label">Completed</span>
+                    <span className="value text-success">{userStats.completed_tasks}</span>
+                  </div>
+                </div>
+
+                <div className="metric-card glass-panel">
+                  <div className="metric-icon">⏳</div>
+                  <div className="metric-info">
+                    <span className="label">Pending</span>
+                    <span className="value text-warning">{userStats.pending_tasks}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Row: Charts */}
+              <div className="charts-container">
+                
+                {/* Chart 1: Priority Distribution (Doughnut) */}
+                <div className="chart-card glass-panel">
+                  <h3>Priority Distribution</h3>
+                  <div className="chart-wrapper">
+                    <ResponsiveContainer width="100%" height={250}>
+                      <PieChart>
+                        <Pie
+                          data={[
+                            { name: 'Low', value: userStats.priority_distribution.low || 0 },
+                            { name: 'Medium', value: userStats.priority_distribution.Medium || 0 },
+                            { name: 'High', value: userStats.priority_distribution.High || 0 },
+                          ]}
+                          cx="50%" cy="50%"
+                          innerRadius={60} outerRadius={80}
+                          paddingAngle={5}
+                          dataKey="value"
+                        >
+                          {COLORS.map((color, index) => (
+                            <Cell key={`cell-${index}`} fill={color} />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip />
+                        <Legend verticalAlign="bottom" height={36}/>
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Chart 2: Productivity Trend (Bar) */}
+                <div className="chart-card glass-panel wide">
+                  <h3>Completion Trend</h3>
+                  <div className="chart-wrapper">
+                    <ResponsiveContainer width="100%" height={250}>
+                      <BarChart data={productivityTrend}>
+                        <XAxis 
+                          dataKey="date" 
+                          tickFormatter={(str) => format(new Date(str), 'dd MMM')}
+                          stroke="#795548"
+                          fontSize={12}
+                        />
+                        <YAxis stroke="#795548" fontSize={12} allowDecimals={false}/>
+                        <RechartsTooltip 
+                          contentStyle={{ borderRadius: '10px', border: 'none', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}
+                        />
+                        <Bar dataKey="completed" fill="#FF9800" radius={[10, 10, 0, 0]} barSize={40} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+              </div>
+            </>
+          ) : (
+            <div className="loading-state">
+              <p>Crunching the numbers... 📊</p>
             </div>
           )}
         </div>

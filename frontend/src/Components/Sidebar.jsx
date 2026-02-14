@@ -18,7 +18,7 @@ export const Sidebar = ({ activeTab, setActiveTab }) => (
     <div className="user-profile">
       <div className="avatar">A</div>
       <div className="user-info">
-        <p className="name">Alex Doe</p>
+        <p className="name">{localStorage.getItem('name')}</p>
       </div>
     </div>
   </aside>

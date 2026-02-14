@@ -19,13 +19,13 @@ export default function LoginPage() {
     try{
       setLoading(true);
       setError(null);
-      const data=await loginUser(formData);
-      console.log("success:",data);
-      if(data.token)
-      {
-        localStorage.setItem("JWT",data.token);
-      }
-      navigate("/home",{replace:true});
+      const data = await loginUser(formData);
+      console.log("Full response:", data);
+      if(data.token) localStorage.setItem("JWT", data.token);
+      if(data.name) localStorage.setItem("name", data.name);
+      if(data.userId) localStorage.setItem("userId",data.userId)
+      navigate("/home", { replace: true });
+
     }
     catch{
         setError(err.response?.data?.message||"Login failed");
