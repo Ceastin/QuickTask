@@ -6,7 +6,7 @@ const mainRouter=require("./routes/index");
 const mongoose=require("mongoose");
 mongoose.connect(process.env.MONGO_URI).then(()=>console.log("Mongo DB connected...")).catch((err)=>console.log(err));
 app.use(cors({
-    origin:'*'//origin.frontend.url
+    origin:process.env.ORIGIN//origin.frontend.url
 }));
 
 app.use(express.json());
