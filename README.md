@@ -11,9 +11,9 @@ QuickTask helps users stay organized and gain deep insights into their productiv
 
 This project demonstrates a production-ready, scalable architecture with strict separation of concerns, built as a technical assessment for LeadMasters AI.
 
-====================================================================
-                     QUICKTASK SYSTEM ARCHITECTURE
-====================================================================
+------------------------------------------------------------------------
+                                                                QUICKTASK SYSTEM ARCHITECTURE
+------------------------------------------------------------------------
 
                         +-------------------------+
                         |                         |
@@ -27,15 +27,15 @@ This project demonstrates a production-ready, scalable architecture with strict 
                +---------------------+---------------------+
                |                                           |
                v                                           v
-+-----------------------------+             +-----------------------------+
-|                             |             |                             |
-|         CORE API            |             |     ANALYTICS SERVICE       |
-|   Node.js + Express (Render)|             |   Python + FastAPI (Render) |
-|                             |             |                             |
-| - User Auth (JWT)           |             | - Data Aggregation          |
-| - Task CRUD Operations      |             | - Productivity Stats        |
-|                             |             |                             |
-+--------------+--------------+             +--------------+--------------+
+          +-----------------------------+             +-----------------------------+
+          |                             |             |                             |
+          |         CORE API            |             |     ANALYTICS SERVICE       |
+          |   Node.js + Express (Render)|             |   Python + FastAPI (Render) |
+          |                             |             |                             |
+          | - User Auth (JWT)           |             | - Data Aggregation          |
+          | - Task CRUD Operations      |             | - Productivity Stats        |
+          |                             |             |                             |
+          +--------------+--------------+             +--------------+--------------+
                |                                           |
                | Mongoose ORM                              | PyMongo Driver
                |                                           |
@@ -50,6 +50,7 @@ This project demonstrates a production-ready, scalable architecture with strict 
                         |        Truth)           |
                         +-------------------------+
 
+                        
 **Key Features:**
 * Secure user authentication & authorization (JWT + bcrypt)
 * Full CRUD operations for tasks
