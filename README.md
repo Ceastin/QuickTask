@@ -11,6 +11,45 @@ QuickTask helps users stay organized and gain deep insights into their productiv
 
 This project demonstrates a production-ready, scalable architecture with strict separation of concerns, built as a technical assessment for LeadMasters AI.
 
+====================================================================
+                     QUICKTASK SYSTEM ARCHITECTURE
+====================================================================
+
+                        +-------------------------+
+                        |                         |
+                        |      CLIENT LAYER       |
+                        |   React.js (Vercel)     |
+                        |   (Dashboard & UI)      |
+                        |                         |
+                        +------------+------------+
+                                     |
+                                     | HTTP Requests (Axios)
+               +---------------------+---------------------+
+               |                                           |
+               v                                           v
++-----------------------------+             +-----------------------------+
+|                             |             |                             |
+|         CORE API            |             |     ANALYTICS SERVICE       |
+|   Node.js + Express (Render)|             |   Python + FastAPI (Render) |
+|                             |             |                             |
+| - User Auth (JWT)           |             | - Data Aggregation          |
+| - Task CRUD Operations      |             | - Productivity Stats        |
+|                             |             |                             |
++--------------+--------------+             +--------------+--------------+
+               |                                           |
+               | Mongoose ORM                              | PyMongo Driver
+               |                                           |
+               +---------------------+---------------------+
+                                     |
+                                     v
+                        +-------------------------+
+                        |                         |
+                        |      DATA LAYER         |
+                        |   MongoDB (Atlas)       |
+                        |  (Single Source of      |
+                        |        Truth)           |
+                        +-------------------------+
+
 **Key Features:**
 * Secure user authentication & authorization (JWT + bcrypt)
 * Full CRUD operations for tasks
