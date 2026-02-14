@@ -134,12 +134,12 @@ GET,/analytics/stats,User productivity statistics
 GET,/analytics/productivity?days=30,Task completion trends
 
 ###  📁 Project Structure
-QuickTask/
-├── backend/          # Node.js + Express API
-├── frontend/         # React + Vite frontend
-├── service/          # Python FastAPI analytics microservice
-├── screenshots/      # Screenshots for README
-├── .gitignore
-└── README.md
+## QuickTask/
+## ├── backend/          # Node.js + Express API
+## ├── frontend/         # React + Vite frontend
+## ├── service/          # Python FastAPI analytics microservice
+## ├── screenshots/      # Screenshots for README
+## ├── .gitignore
+## └── README.md
 
 ###  📸 Screenshots
