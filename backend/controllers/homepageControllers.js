@@ -1,13 +1,11 @@
 const Task=require("../models/Task");
 const mongoose=require("mongoose");
-
+const {sentToMainQueue, sendDelayedRemider}=require("../utils/rabbitmq");
 const createTask=async(req,res)=>{
     try{
         console.log(req.body);
         const {title,dueDate,description,priority}=req.body;
-        console.log("erer");
         const {userId}=req.user;
-        console.log("erer");
         if(!title||!dueDate){
             return res.status(400).json({message:"Title and DueDate required"});
         }
@@ -18,6 +16,21 @@ const createTask=async(req,res)=>{
            priority,
            dueDate
         });
+        //-------------   Scheduling Logic --------------------------
+        const taskDueDateMs=new Date(dueDate).getTime();
+        const oneDayInMs= 24*60*60*1000;
+        const targetReminderTime=taskDueDateMs-oneDayInMs;
+        const delayInMs=15000;//targetReminderTime-Date.now();
+
+        if(delayInMs>0)
+        {
+            await sendDelayedRemider({
+                eventType: "REMINDER_EMAIL",
+                taskId: task._id,
+                userId: userId,
+                originalDueDate: taskDueDateMs
+            },delayInMs);
+        }
         return res.status(201).json({message:"Task created Successfully",task});
     }catch(err){
         console.log(err);
@@ -72,7 +85,7 @@ const modifyTask=async (req,res)=>{
         }
         const task = await Task.findByIdAndUpdate(
         id,
-        { $set: req.body },   
+        { $set: updates },   
         {
             new: true,         
             runValidators: true

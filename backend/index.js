@@ -4,7 +4,10 @@ const cors=require("cors");
 const app=express();
 const mainRouter=require("./routes/index");
 const mongoose=require("mongoose");
+const {setupDelayedArchitecture}=require("./utils/rabbitmq");
+
 mongoose.connect(process.env.MONGO_URI).then(()=>console.log("Mongo DB connected...")).catch((err)=>console.log(err));
+setupDelayedArchitecture();
 app.use(cors({
     origin:process.env.ORIGIN//origin.frontend.url
 }));
